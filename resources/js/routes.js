@@ -5,7 +5,11 @@ const router = createRouter({
     routes: [
         {
             path: '/',
-            component: () => import('./pages/Home.vue')
+            component: () => import('./pages/DataKaryawan.vue')
+        },
+        {
+            path: '/data-karyawan',
+            component: () => import('./pages/DataKaryawan.vue')
         },
         {
             path: '/home/:id',

@@ -3,11 +3,15 @@
         <ul class="navbar-nav bg-orange sidebar sidebar-dark accordion" id="accordionSidebar">
             <hr class="sidebar-divider my-0">
             <li class="nav-item">
-                <router-link to="/" class="nav-link"><i class="fas fa-fw fa-tachometer-alt"></i> <span>Go to Home</span></router-link>
+                <router-link to="/" class="nav-link"><i class="fas fa-fw fa-tachometer-alt"></i> <span>Data Karyawan </span><br></router-link>
             </li>
             <hr class="sidebar-divider my-0">
             <li class="nav-item">
-                <router-link to="/home/jordan" class="nav-link"><i class="fas fa-fw fa-tachometer-alt"></i> <span>Go to Jordan</span></router-link>
+                <router-link to="/home/123" class="nav-link"><i class="fas fa-fw fa-tachometer-alt"></i> <span>Data Kriteria</span></router-link>
+            </li>
+            <hr class="sidebar-divider my-0">
+            <li class="nav-item">
+                <router-link to="/home/123" class="nav-link"><i class="fas fa-fw fa-tachometer-alt"></i> <span>Data Attribute</span></router-link>
             </li>
             <hr class="sidebar-divider my-0">
         </ul>
