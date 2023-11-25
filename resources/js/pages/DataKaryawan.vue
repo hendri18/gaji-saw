@@ -3,7 +3,7 @@
     <div class="card">
         <div class="card-header">Data Karyawan</div>
         <div class="card-body">
-            <table class="display table table-bordered" id="dataTable">
+            <table class="display table table-bordered" id="dataTable" v-once>
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -112,10 +112,6 @@ const TABLE = {
         this.data = table;
     }
 }
-
-$(document).ready(function() {
-    TABLE.initData();
-});
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
 export default {

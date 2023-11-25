@@ -19,7 +19,7 @@ class KaryawanController extends Controller
     public function index(Request $request)
     {
         $search = $request->input('search.value');
-        $search = empty($search) ? "" : "AND (name LIKE '%".$search."%' OR address LIKE '%".$search."%' OR phone_number LIKE '%".$search."%' OR place_of_birth LIKE '%".$search."%' OR date_of_birth LIKE '%".$search."%')";
+        $search = empty($search) ? "" : "AND (nama LIKE '%".$search."%' OR alamat LIKE '%".$search."%' OR tgl_masuk_kerja LIKE '%".$search."%' OR pendidikan LIKE '%".$search."%' OR status_pernikahan LIKE '%".$search."%')";
         $karyawan = \DB::select("
             SELECT * FROM 
             karyawan
