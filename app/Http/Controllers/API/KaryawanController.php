@@ -39,7 +39,25 @@ class KaryawanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $karyawan = new Karyawan();
+        
+            $karyawan->nama = $request->nama;
+            $karyawan->tgl_masuk_kerja = $request->tgl_masuk_kerja;
+            $karyawan->alamat = $request->alamat;
+            $karyawan->pendidikan = $request->pendidikan;
+            $karyawan->status_pernikahan = $request->status_pernikahan;
+        
+            $karyawan->save();
+
+            return response()->json([
+                "message" => "Karyawan Berhasil ditambahkan"
+            ]);
+        } catch(Exception $e) {
+            return response()->json([
+                "message" => $e->getMessage(),
+            ], 500);
+        }
     }
 
     /**
@@ -50,7 +68,9 @@ class KaryawanController extends Controller
      */
     public function show($id)
     {
-        //
+        $karyawan = Karyawan::find($id);
+        if (empty($karyawan)) return response()->json(["message" => "Data tidak ditemukan"], 404);
+        return new KaryawanResource(Karyawan::findOrFail($id));
     }
 
     /**
@@ -62,7 +82,25 @@ class KaryawanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $karyawan = Karyawan::findOrFail($id);
+        
+            $karyawan->nama = $request->nama;
+            $karyawan->tgl_masuk_kerja = $request->tgl_masuk_kerja;
+            $karyawan->alamat = $request->alamat;
+            $karyawan->pendidikan = $request->pendidikan;
+            $karyawan->status_pernikahan = $request->status_pernikahan;
+        
+            $karyawan->save();
+
+            return response()->json([
+                "message" => "Karyawan Berhasil diupdate"
+            ]);
+        } catch(Exception $e) {
+            return response()->json([
+                "message" => $e->getMessage(),
+            ], 500);
+        }
     }
 
     /**
@@ -73,6 +111,17 @@ class KaryawanController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $karyawan = Karyawan::findOrFail($id);
+            $karyawan->delete();
+
+            return response()->json([
+                "message" => "Karyawan Berhasil dihapus"
+            ]);
+        } catch(Exception $e) {
+            return response()->json([
+                "message" => $e->getMessage(),
+            ], 500);
+        }
     }
 }

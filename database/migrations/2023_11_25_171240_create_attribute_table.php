@@ -13,13 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('karyawan', function (Blueprint $table) {
+        Schema::create('attribute', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
-            $table->date('tgl_masuk_kerja');
-            $table->text('alamat')->nullable();
-            $table->enum('pendidikan', ['sd', 'smp', 'sma', 'd3', 's1', 's2', 's3'])->nullable();
-            $table->enum('status_pernikahan', ['single', 'nikah'])->default('single')->nullable();
             $table->timestamps();
         });
     }
@@ -31,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('karyawan');
+        Schema::dropIfExists('attribute');
     }
 };
