@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('kriteria', function (Blueprint $table) {
+        Schema::create('crips', function (Blueprint $table) {
             $table->id();
+            $table->index('kategori_id');
+            $table->foreign('kategori_id')->references('id')->on('kategori')->onDelete('cascade');
             $table->string('nama');
-            $table->integer('bobot');
-            $table->enum('type', ['benefit', 'cost']);
-            $table->bool('use_crips')->default(false);
+            $table->integer('nilai');
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('kriteria');
+        Schema::dropIfExists('crips');
     }
 };
