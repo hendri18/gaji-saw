@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('nama');
             $table->integer('bobot');
             $table->enum('type', ['benefit', 'cost']);
-            $table->bool('use_crips')->default(false);
+            $table->boolean('use_crips')->default(false);
             $table->timestamps();
         });
     }

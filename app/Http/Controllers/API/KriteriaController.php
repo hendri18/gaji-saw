@@ -5,10 +5,10 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
-use App\Models\Karyawan;
+use App\Models\Kriteria;
 
 
-class KaryawanController extends Controller
+class KriteriaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,14 +18,14 @@ class KaryawanController extends Controller
     public function index(Request $request)
     {
         $search = $request->input('search.value');
-        $search = empty($search) ? "" : "AND (nama LIKE '%".$search."%' OR alamat LIKE '%".$search."%' OR tgl_masuk_kerja LIKE '%".$search."%' OR pendidikan LIKE '%".$search."%' OR status_pernikahan LIKE '%".$search."%')";
-        $karyawan = \DB::select("
+        $search = empty($search) ? "" : "AND (nama LIKE '%".$search."%')";
+        $kriteria = \DB::select("
             SELECT * FROM 
-            karyawan
+            kriteria
             WHERE id IS NOT NULL $search 
             ");
-        $karyawan = collect($karyawan);
-        return DataTables::of($karyawan)
+        $kriteria = collect($kriteria);
+        return DataTables::of($kriteria)
         ->filter(function ($query) {})
         ->make(true);
     }
@@ -39,18 +39,17 @@ class KaryawanController extends Controller
     public function store(Request $request)
     {
         try {
-            $karyawan = new Karyawan();
+            $kriteria = new Kriteria();
         
-            $karyawan->nama = $request->nama;
-            $karyawan->tgl_masuk_kerja = $request->tgl_masuk_kerja;
-            $karyawan->alamat = $request->alamat;
-            $karyawan->pendidikan = $request->pendidikan;
-            $karyawan->status_pernikahan = $request->status_pernikahan;
+            $kriteria->nama = $request->nama;
+            $kriteria->bobot = $request->bobot;
+            $kriteria->type = $request->type;
+            $kriteria->use_crips = (bool) $request->use_crips;
         
-            $karyawan->save();
+            $kriteria->save();
 
             return response()->json([
-                "message" => "Karyawan Berhasil ditambahkan"
+                "message" => "Kriteria Berhasil ditambahkan"
             ]);
         } catch(Exception $e) {
             return response()->json([
@@ -68,16 +67,44 @@ class KaryawanController extends Controller
     public function show($id)
     {
         try {
-            $karyawan = Karyawan::findOrFail($id);
+            $kriteria = Kriteria::findOrFail($id);
             return response()->json([
                 "message" => "success",
-                "data" => $karyawan
+                "data" => $kriteria,
             ]);
         } catch(Exception $e) {
             return response()->json([
                 "message" => $e->getMessage(),
             ], 500);
         }
+    }
+
+    /**
+     * Get max bobot
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getMaxBobot(Request $request) 
+    {
+        try {
+            $kriteria_id = $request->kriteria_id;
+            if (!empty($kriteria_id)) {
+                $total_bobot = Kriteria::select('bobot')->where('id', '!=', $kriteria_id)->sum('bobot') ?? 0;
+            } else {
+                $total_bobot = Kriteria::select('bobot')->sum('bobot') ?? 0;
+            }
+            return response()->json([
+                "message" => "success",
+                "data" => [
+                    'max_bobot' => Kriteria::MAX_BOBOT - $total_bobot,
+                ],
+            ]);
+        } catch(Exception $e) {
+            return response()->json([
+                "message" => $e->getMessage(),
+            ], 500);
+        }
+
     }
 
     /**
@@ -90,18 +117,17 @@ class KaryawanController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $karyawan = Karyawan::findOrFail($id);
+            $kriteria = Kriteria::findOrFail($id);
         
-            $karyawan->nama = $request->nama;
-            $karyawan->tgl_masuk_kerja = $request->tgl_masuk_kerja;
-            $karyawan->alamat = $request->alamat;
-            $karyawan->pendidikan = $request->pendidikan;
-            $karyawan->status_pernikahan = $request->status_pernikahan;
+            $kriteria->nama = $request->nama;
+            $kriteria->bobot = $request->bobot;
+            $kriteria->type = $request->type;
+            $kriteria->use_crips = (bool) $request->use_crips;
         
-            $karyawan->save();
+            $kriteria->save();
 
             return response()->json([
-                "message" => "Karyawan Berhasil diupdate"
+                "message" => "Kriteria Berhasil diupdate"
             ]);
         } catch(Exception $e) {
             return response()->json([
@@ -119,11 +145,11 @@ class KaryawanController extends Controller
     public function destroy($id)
     {
         try {
-            $karyawan = Karyawan::findOrFail($id);
-            $karyawan->delete();
+            $kriteria = Kriteria::findOrFail($id);
+            $kriteria->delete();
 
             return response()->json([
-                "message" => "Karyawan Berhasil dihapus"
+                "message" => "Kriteria Berhasil dihapus"
             ]);
         } catch(Exception $e) {
             return response()->json([

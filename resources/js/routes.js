@@ -12,8 +12,8 @@ const router = createRouter({
             component: () => import('./pages/DataKaryawan.vue')
         },
         {
-            path: '/home/:id',
-            component: () => import('./pages/Home2.vue')
+            path: '/data-kriteria',
+            component: () => import('./pages/DataKriteria.vue')
         }
     ],
 })

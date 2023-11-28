@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('crips', function (Blueprint $table) {
             $table->id();
-            $table->index('kategori_id');
-            $table->foreign('kategori_id')->references('id')->on('kategori')->onDelete('cascade');
+            $table->unsignedBigInteger('kriteria_id');
+            $table->foreign('kriteria_id')->references('id')->on('kriteria');
             $table->string('nama');
             $table->integer('nilai');
             $table->timestamps();

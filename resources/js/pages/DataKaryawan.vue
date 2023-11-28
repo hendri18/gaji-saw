@@ -28,7 +28,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="api/karyawan" method="post" v-on:submit="saveKaryawan">
+                    <form action="api/karyawan" method="post" v-on:submit="saveForm">
                         
                         <input type="hidden" name="id" v-model="karyawan.id">
                         <div class="form-group row">
@@ -124,7 +124,7 @@ export default {
         }
 
         const editForm = async (id) => {
-            await axios.get(`api/karyawan/${id}`).then((response) => {
+            axios.get(`api/karyawan/${id}`).then((response) => {
                 karyawan.value = response.data.data;
                 $('#modalFormKaryawan').modal('show');
             }).catch((error) => {
@@ -133,7 +133,7 @@ export default {
             });
         }
 
-        const saveKaryawan = (e) => {
+        const saveForm = (e) => {
             e.preventDefault();
             const data = karyawan.value;
             const url = data.id ? `api/karyawan/${data.id}` : 'api/karyawan';
@@ -157,7 +157,7 @@ export default {
             const confirmation = confirm(`Hapus Data ${name}?`);
             if (!confirmation) return;
 
-            await axios.delete(`api/karyawan/${id}`).then((response) => {
+            axios.delete(`api/karyawan/${id}`).then((response) => {
                 alert(response.data.message);
                 setTimeout(() => TABLE.data.ajax.reload(), 500);
             }).catch((error) => {
@@ -167,7 +167,7 @@ export default {
 
         }
         return {
-            karyawan, saveKaryawan, addForm, editForm, deleteData
+            karyawan, saveForm, addForm, editForm, deleteData
         }
     },
     mounted() {
