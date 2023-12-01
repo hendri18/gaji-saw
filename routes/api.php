@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\KaryawanController;
 use App\Http\Controllers\API\KriteriaController;
+use App\Http\Controllers\API\CripsController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -22,3 +23,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::apiResource('karyawan', KaryawanController::class);
 Route::get('kriteria/max-bobot', [KriteriaController::class, 'getMaxBobot']);
 Route::apiResource('kriteria', KriteriaController::class);
+Route::apiResource('crips', CripsController::class);

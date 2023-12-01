@@ -7,7 +7,7 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Name</th>
+                        <th>Nama</th>
                         <th>Alamat</th>
                         <th>Tgl Masuk Kerja</th>
                         <th>Status Pernikahan</th>

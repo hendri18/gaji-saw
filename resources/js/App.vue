@@ -7,11 +7,11 @@
             </li>
             <!-- <hr class="sidebar-divider my-0"> -->
             <li class="nav-item">
-                <router-link to="/kriteria" class="nav-link"><i class="fas fa-fw fa-tachometer-alt"></i> <span>Data Kriteria</span></router-link>
+                <router-link to="/data-kriteria" class="nav-link"><i class="fas fa-fw fa-tachometer-alt"></i> <span>Data Kriteria</span></router-link>
             </li>
             <!-- <hr class="sidebar-divider my-0"> -->
             <li class="nav-item">
-                <router-link to="/crips" class="nav-link"><i class="fas fa-fw fa-tachometer-alt"></i> <span>Data Crips</span></router-link>
+                <router-link to="/data-crips" class="nav-link"><i class="fas fa-fw fa-tachometer-alt"></i> <span>Data Crips</span></router-link>
             </li>
             <!-- <hr class="sidebar-divider my-0"> -->
         </ul>

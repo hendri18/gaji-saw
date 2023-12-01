@@ -14,6 +14,14 @@ const router = createRouter({
         {
             path: '/data-kriteria',
             component: () => import('./pages/DataKriteria.vue')
+        },
+        {
+            path: '/data-crips/',
+            component: () => import('./pages/DataCrips.vue')
+        },
+        {
+            path: '/data-crips/:kriteria_id',
+            component: () => import('./pages/DataKriteria.vue')
         }
     ],
 })
