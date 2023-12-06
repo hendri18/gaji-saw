@@ -23,4 +23,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::apiResource('karyawan', KaryawanController::class);
 Route::get('kriteria/max-bobot', [KriteriaController::class, 'getMaxBobot']);
 Route::apiResource('kriteria', KriteriaController::class);
+Route::get('crips/all-kriteria', [CripsController::class, 'getKriteriaByCrips']);
 Route::apiResource('crips', CripsController::class);

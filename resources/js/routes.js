@@ -21,7 +21,7 @@ const router = createRouter({
         },
         {
             path: '/data-crips/:kriteria_id',
-            component: () => import('./pages/DataKriteria.vue')
+            component: () => import('./pages/DataCripsKriteria.vue')
         }
     ],
 })

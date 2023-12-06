@@ -16,6 +16,11 @@ class CripsController extends Controller
      */
     public function index(Request $request)
     {
+        
+    }
+
+    public function getKriteriaByCrips(Request $request)
+    {
         $search = $request->input('search.value');
         $search = empty($search) ? "" : "AND (nama LIKE '%".$search."%')";
         $kriteria = \DB::select("
