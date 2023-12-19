@@ -22,7 +22,11 @@ const router = createRouter({
         {
             path: '/data-crips/:kriteria_id',
             component: () => import('./pages/DataCripsKriteria.vue')
-        }
+        },
+        {
+            path: '/pengambilan-keputusan',
+            component: () => import('./pages/PengambilanKeputusan.vue')
+        },
     ],
 })
 router.beforeEach((to, from, next) => {

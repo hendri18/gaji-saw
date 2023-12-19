@@ -1,6 +1,6 @@
 <template>
     <div id="wrapper">
-        <ul class="navbar-nav bg-orange sidebar sidebar-dark accordion" id="accordionSidebar">
+        <ul class="navbar-nav bg-dark sidebar sidebar-dark accordion" id="accordionSidebar">
             <!-- <hr class="sidebar-divider my-0"> -->
             <li class="nav-item">
                 <router-link to="/" class="nav-link"><i class="fas fa-fw fa-tachometer-alt"></i> <span>Data Karyawan </span><br></router-link>
@@ -14,6 +14,9 @@
                 <router-link to="/data-crips" class="nav-link"><i class="fas fa-fw fa-tachometer-alt"></i> <span>Data Crips</span></router-link>
             </li>
             <!-- <hr class="sidebar-divider my-0"> -->
+            <li class="nav-item">
+                <router-link to="/pengambilan-keputusan" class="nav-link"><i class="fas fa-fw fa-tachometer-alt"></i> <span>Pengambilan Keputusan</span></router-link>
+            </li>
         </ul>
         <div id="content-wrapper" class="d-flex flex-column">
             <div id="content">

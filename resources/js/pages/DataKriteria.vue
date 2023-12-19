@@ -121,7 +121,7 @@ export default {
         const editForm = async (id) => {
             try {
                 const resp = await axios.get(`api/kriteria/max-bobot?kriteria_id=${id}`);
-                axios.get(`api/kriteria/${id}`).then((response) => {
+                axios.get(` ${id}`).then((response) => {
                     kriteria.value = {...response.data.data, ...{max_bobot: resp.data.data.max_bobot}};
                     $('#modalFormKriteria').modal('show');
                 }).catch((error) => {

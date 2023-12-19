@@ -24,4 +24,6 @@ Route::apiResource('karyawan', KaryawanController::class);
 Route::get('kriteria/max-bobot', [KriteriaController::class, 'getMaxBobot']);
 Route::apiResource('kriteria', KriteriaController::class);
 Route::get('crips/all-kriteria', [CripsController::class, 'getKriteriaByCrips']);
+Route::get('crips/kriteria/{kriteria_id}', [CripsController::class, 'getCripsByKriteria']);
+Route::get('crips/max-nilai/{kriteria_id}/', [CripsController::class, 'getMaxNilai']);
 Route::apiResource('crips', CripsController::class);
