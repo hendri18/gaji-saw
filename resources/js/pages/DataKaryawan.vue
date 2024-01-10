@@ -1,9 +1,9 @@
 <template>
-    <button @click="addForm" class="btn btn-warning mb-3">Tambah Karyawan</button>
+    <button @click="addForm" class="btn btn-success mb-3">Tambah Data</button>
     <div class="card">
         <div class="card-header">Data Karyawan</div>
         <div class="card-body">
-            <table class="display table table-bordered" id="dataTable" v-once>
+            <!-- <table class="display table table-bordered" id="dataTable" v-once>
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -14,8 +14,8 @@
                         <th>Pendidikan Terakhir</th>
                         <th></th>
                     </tr>
-                </thead>
-            </table>
+                </thead> -->
+                <table class="display table table-bordered" id="dataTable" v-once></table>
         </div>
     </div>
     <!-- Modal -->
@@ -23,7 +23,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="modalFormKaryawanLabel" v-if="!karyawan.id">Tambah Karyawan</h1>
+                    <h1 class="modal-title fs-5" id="modalFormKaryawanLabel" v-if="!karyawan.id">Tambah Data</h1>
                     <h1 class="modal-title fs-5" id="modalFormKaryawanLabel" v-else>Edit Karyawan </h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -37,45 +37,19 @@
                                 <input type="text" id="nama" name="nama" class="form-control" v-model="karyawan.nama" required>
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label for="alamat" class="col-sm-3 col-form-label">Alamat</label>
+
+                        <div class="form-group row" v-for="(kr, i) in kriteria">
+                            <label class="col-sm-3 col-form-label">{{ kr.nama }}</label>
                             <div class="col-sm-9">
-                                <textarea name="alamat" id="alamat" cols="38" rows="3" v-model="karyawan.alamat" class="form-control" required></textarea>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="tgl_masuk_kerja" class="col-sm-3 col-form-label">Tanggal Masuk Kerja</label>
-                            <div class="col-sm-9">
-                                <input type="date" id="tgl_masuk_kerja" name="tgl_masuk_kerja" class="form-control" v-model="karyawan.tgl_masuk_kerja" required>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="" class="col-sm-3 col-form-label">Status Pernikahan</label>
-                            <div class="col-sm-9">
-                                <input type="radio" name="status_pernikahan" value="single" id="single" v-model="karyawan.status_pernikahan" required> <label for="single">Single</label>
-                                &nbsp;
-                                <input type="radio" name="status_pernikahan" value="nikah" id="nikah" v-model="karyawan.status_pernikahan" required> <label for="nikah">Sudah Menikah</label>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="pendidikan" class="col-sm-3 col-form-label">Pendidikan Terakhir</label>
-                            <div class="col-sm-9">
-                                <select name="pendidikan" id="pendidikan" class="form-control" v-model="karyawan.pendidikan">
-                                    <option value="">Belum/Tidak Sekolah</option>
-                                    <option value="sd">SD</option>
-                                    <option value="smp">SMP</option>
-                                    <option value="sma">SMA</option>
-                                    <option value="d3">D3</option>
-                                    <option value="s1">S1</option>
-                                    <option value="s2">S2</option>
-                                    <option value="s3">S3</option>
+                                <select name="crip_id[]" class="form-select" v-model="crips_id[kr.id]" required>
+                                    <option v-for="crip in kr.crips" :value="crip.id">{{ crip.nama }}</option>
                                 </select>
                             </div>
                         </div>
                         
                         <div class="d-flex justify-content-end">
                             <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-success">Save changes</button>
+                            <button type="submit" class="btn btn-success">Simpan</button>
                         </div>
                     </form>
                 </div>
@@ -84,48 +58,71 @@
     </div>
 </template>
 <script>
+import { ref, onMounted } from 'vue'
+import axios from 'axios'
 
 const TABLE = {
-    initData: function(){
-        // const table = $('#dataTable').DataTable();
+    initData: async function(){
+        let columns = [];
+        try {
+            const resp = await axios.get(`api/karyawan/columns`);
+            const data = resp.data.data.columns;
+            data.map(item => {
+                columns.push({title: item.title })
+                return item;
+            })
+            
+        } catch (error) {
+            alert(error.response.data.message ?? error.message);
+            console.error(error)
+        }
+
         const table = $('#dataTable').DataTable({
             processing: true,
             serverSide: true,
-            destroy: true,
             ajax: "api/karyawan",
+            columns: columns.length > 0 ? columns : [{title: '&nbsp;'}],
             columnDefs: [
-                {targets: 0, defaultContent:"", data: 'id', },
-                {targets: 1, defaultContent:"", data: 'nama', },
-                {targets: 2, defaultContent:"", data: 'alamat', },
-                {targets: 3, defaultContent:"", data: 'tgl_masuk_kerja', },
-                {targets: 4, defaultContent:"", data: 'status_pernikahan', },
-                {targets: 5, defaultContent:"", data: 'pendidikan', },
-                {targets: 6, defaultContent:"", data: 'id', render: function ( data, type, full, meta ) {
-                        const btnUpdate = `<button class="btn btn-warning btn-sm" onclick="window.__vueApp.editForm(${data})">Edit</button>`;
-                        const btnDelete = `<button class="btn btn-danger btn-sm" onclick="window.__vueApp.deleteData(${data}, '${full.nama}')">Delete</button>`;
+                {targets: "_all", defaultContent: "", },
+                {targets: -1, defaultContent:"", data: 'id', render: function ( data, type, full, meta ) {
+                        const id = full[0] ?? 0;
+                        const nama = full[1] ?? '';
+                        const btnUpdate = `<button class="btn btn-warning btn-sm" onclick="window.__vueApp.editForm(${id})">Edit</button>`;
+                        const btnDelete = `<button class="btn btn-danger btn-sm" onclick="window.__vueApp.deleteData(${id}, '${nama}')">Delete</button>`;
                         return btnUpdate +'&nbsp;'+ btnDelete;
                     },
-                },
-               
-            ] 
+                }
+            ]
         });
         this.data = table;
     }
 }
-import { ref, onMounted } from 'vue'
-import axios from 'axios'
+
 export default {
     setup() {
         const karyawan = ref({})
+        const kriteria = ref({})
+        const crips_id = ref([])
 
         const addForm = () => {
             karyawan.value = {}
-            $('#modalFormKaryawan').modal('show')
+            crips_id.value = {}
+            $('#modalFormKaryawan').modal('show');
         }
 
         const editForm = async (id) => {
             axios.get(`api/karyawan/${id}`).then((response) => {
-                karyawan.value = response.data.data;
+                const resp = response.data.data
+                karyawan.value = resp
+                
+                const cs_id = [];
+                (resp.karyawan_kriteria ?? []).map(item => {
+                    cs_id[item.crip.kriteria_id] = item.crip.id
+                    return item;
+                });
+
+                crips_id.value = cs_id;
+
                 $('#modalFormKaryawan').modal('show');
             }).catch((error) => {
                 alert(error.response.data.message ?? error.message);
@@ -135,7 +132,7 @@ export default {
 
         const saveForm = (e) => {
             e.preventDefault();
-            const data = karyawan.value;
+            const data = {...karyawan.value, crips_id: crips_id.value};
             const url = data.id ? `api/karyawan/${data.id}` : 'api/karyawan';
             const method = data.id ? 'put' : `post`;
             axios({
@@ -164,10 +161,19 @@ export default {
                 alert(error.response.data.message ?? error.message);
                 console.error(error)
             });
-
         }
+
+        onMounted (async () => {
+            try {
+                const resp = await axios.get(`api/kriteria/crips`);
+                kriteria.value = resp.data.data;
+            } catch (error) {
+                alert(error)
+                console.error(error)
+            }
+        })
         return {
-            karyawan, saveForm, addForm, editForm, deleteData
+            karyawan, kriteria, crips_id, saveForm, addForm, editForm, deleteData
         }
     },
     mounted() {

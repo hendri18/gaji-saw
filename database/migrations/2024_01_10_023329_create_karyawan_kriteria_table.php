@@ -13,12 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('crips', function (Blueprint $table) {
+        Schema::create('karyawan_kriteria', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('karyawan_id');
+            $table->foreign('karyawan_id')->references('id')->on('karyawan')->onDelete('cascade');
             $table->unsignedBigInteger('kriteria_id');
             $table->foreign('kriteria_id')->references('id')->on('kriteria')->onDelete('cascade');
-            $table->string('nama');
-            $table->integer('nilai');
+            $table->unsignedBigInteger('crip_id');
+            $table->foreign('crip_id')->references('id')->on('crips')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -30,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('crips');
+        Schema::dropIfExists('karyawan_kriteria');
     }
 };

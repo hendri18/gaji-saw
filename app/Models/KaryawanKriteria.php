@@ -6,15 +6,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Crips;
 
-class Kriteria extends Model
+class KaryawanKriteria extends Model
 {
     use HasFactory;
 
-    const MAX_BOBOT = 100;
-    protected $table = 'kriteria';
+    protected $table = 'karyawan_kriteria';
 
-    public function crips()
+    public function crip()
     {
-        return $this->hasMany(Crips::class);
+        return $this->belongsTo(Crips::class);
     }
 }

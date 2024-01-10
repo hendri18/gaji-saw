@@ -1,6 +1,6 @@
 <template>
     <div class="card">
-        <div class="card-header">Data Crips</div>
+        <div class="card-header">Data Sub Kriteria (crips)</div>
         <div class="card-body">
             <table class="display table table-bordered" id="dataTable" v-once>
                 <thead>

@@ -32,7 +32,7 @@ class CripsController extends Controller
         $kriteria = \DB::select("
             SELECT * FROM 
             kriteria
-            WHERE id IS NOT NULL AND use_crips = true $search 
+            WHERE id IS NOT NULL $search 
             ");
         $kriteria = collect($kriteria);
         return DataTables::of($kriteria)
@@ -111,7 +111,7 @@ class CripsController extends Controller
             $crips->save();
 
             return response()->json([
-                "message" => "Data Crtips Berhasil ditambahkan"
+                "message" => "Data Sub Kriteria Berhasil ditambahkan"
             ]);
         } catch(Exception $e) {
             return response()->json([

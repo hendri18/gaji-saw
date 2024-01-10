@@ -20,8 +20,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('karyawan/columns', [KaryawanController::class, 'columns']);
 Route::apiResource('karyawan', KaryawanController::class);
 Route::get('kriteria/max-bobot', [KriteriaController::class, 'getMaxBobot']);
+Route::get('kriteria/crips', [KriteriaController::class, 'getKriteriaCrips']);
 Route::apiResource('kriteria', KriteriaController::class);
 Route::get('crips/all-kriteria', [CripsController::class, 'getKriteriaByCrips']);
 Route::get('crips/kriteria/{kriteria_id}', [CripsController::class, 'getCripsByKriteria']);

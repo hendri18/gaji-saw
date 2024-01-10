@@ -1,5 +1,5 @@
 <template>
-    <button @click="addForm" class="btn btn-warning mb-3">Tambah Kriteria</button>
+    <button @click="addForm" class="btn btn-success mb-3">Tambah Kriteria</button>
     <div class="card">
         <div class="card-header">Data Kriteria</div>
         <div class="card-body">
@@ -10,7 +10,6 @@
                         <th>Name</th>
                         <th>Bobot</th>
                         <th>Tipe</th>
-                        <th>Data Crips</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -38,28 +37,27 @@
                         </div>
                         <div class="form-group row">
                             <label for="alamat" class="col-sm-4 col-form-label">Bobot <br><small>bobot tersedia: {{ kriteria.max_bobot }}</small></label>
-                            <div class="col-sm-8">
-                                <input type="number" min="1" :max="kriteria.max_bobot" v-model="kriteria.bobot" class="form-control" required>
+                            <div class="col-sm-4">
+                                <div class="input-group">
+                                    <input type="number" min="1" :max="kriteria.max_bobot" v-model="kriteria.bobot" class="form-control" required>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">%</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="type" class="col-sm-4 col-form-label">Type</label>
                             <div class="col-sm-8">
-                                <select name="type" id="type" v-model="kriteria.type" class="form-control" required>
+                                <select name="type" id="type" v-model="kriteria.type" class="form-select" required>
                                     <option value="benefit">Benefit</option>
                                     <option value="cost">Cost</option>
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group row align-items-center">
-                            <label for="use_crips" class="col-sm-4 col-form-label">Menggunakan Data Crips</label>
-                            <div class="col-sm-8">
-                                <input type="checkbox" name="use_crips" id="use_crips" v-model="kriteria.use_crips">
-                            </div>
-                        </div>
                         <div class="d-flex justify-content-end">
                             <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-success">Save changes</button>
+                            <button type="submit" class="btn btn-success">Simpan</button>
                         </div>
                     </form>
                 </div>
@@ -81,10 +79,7 @@ const TABLE = {
                 {targets: 1, defaultContent:"", data: 'nama', },
                 {targets: 2, defaultContent:"", data: 'bobot', },
                 {targets: 3, defaultContent:"", data: 'type', },
-                {targets: 4, defaultContent:"", data: 'use_crips', render: function (data) {
-                    return data ? '✔' : '✖';
-                }},
-                {targets: 5, defaultContent:"", data: 'id', render: function ( data, type, full, meta ) {
+                {targets: 4, defaultContent:"", data: 'id', render: function ( data, type, full, meta ) {
                         const btnUpdate = `<button class="btn btn-warning btn-sm" onclick="window.__vueApp.editForm(${data})">Edit</button>`;
                         const btnDelete = `<button class="btn btn-danger btn-sm" onclick="window.__vueApp.deleteData(${data}, '${full.nama}')">Delete</button>`;
                         return btnUpdate +'&nbsp;'+ btnDelete;
@@ -97,6 +92,7 @@ const TABLE = {
     }
 }
 import { ref, onMounted } from 'vue'
+import { useRouter } from "vue-router";
 import axios from 'axios'
 export default {
     setup() {
@@ -135,6 +131,7 @@ export default {
             
         }
 
+        const router = useRouter()
         const saveForm = (e) => {
             e.preventDefault();
             const data = kriteria.value;
@@ -147,6 +144,10 @@ export default {
             }).then((response) => {
                 alert(response.data.message ?? '')
                 $('#modalFormKriteria').modal('hide')
+                if (!data.id && response.data.id) {
+                    router.push(`/data-crips/${response.data.id}`);
+                    return;
+                }
                 setTimeout(() => TABLE.data.ajax.reload(), 500);
             })
             .catch((error) => {

@@ -44,11 +44,11 @@ class KriteriaController extends Controller
             $kriteria->nama = $request->nama;
             $kriteria->bobot = $request->bobot;
             $kriteria->type = $request->type;
-            $kriteria->use_crips = (bool) $request->use_crips;
         
             $kriteria->save();
 
             return response()->json([
+                "id" => $kriteria->id,
                 "message" => "Kriteria Berhasil ditambahkan"
             ]);
         } catch(Exception $e) {
@@ -122,7 +122,6 @@ class KriteriaController extends Controller
             $kriteria->nama = $request->nama;
             $kriteria->bobot = $request->bobot;
             $kriteria->type = $request->type;
-            $kriteria->use_crips = (bool) $request->use_crips;
         
             $kriteria->save();
 
@@ -156,5 +155,15 @@ class KriteriaController extends Controller
                 "message" => $e->getMessage(),
             ], 500);
         }
+    }
+
+    public function getKriteriaCrips()
+    {
+        $kriteria = Kriteria::with('crips')->get();
+
+        return response()->json([
+            "data" => $kriteria,
+            "message" => "success"
+        ]);
     }
 }

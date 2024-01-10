@@ -2,7 +2,7 @@
     <router-link to="/data-crips" class="btn btn-warning mb-3 mr-2"><i class="fas fa-fw fa-arrow-left"></i> <span>Kembali</span></router-link>
     <button @click="addForm" class="btn btn-success mb-3">Tambah</button>
     <div class="card">
-        <div class="card-header">Data Crips | Kriteria: <b>{{kriteria.nama}}</b></div>
+        <div class="card-header">Data Sub Kriteria (crips) | Kriteria: {{kriteria.nama}}</div>
         <div class="card-body">
             <table class="display table table-bordered" id="dataTable" v-once>
                 <thead>
@@ -37,13 +37,18 @@
                         </div>
                         <div class="form-group row">
                             <label for="alamat" class="col-sm-4 col-form-label">Nilai <br><small>nilai tersedia: {{ crips.max_nilai }}</small></label>
-                            <div class="col-sm-8">
-                                <input type="number" min="1" :max="crips.max_nilai" v-model="crips.nilai" class="form-control" required>
+                            <div class="col-sm-4">
+                                <div class="input-group">
+                                    <input type="number" min="1" :max="crips.max_nilai" v-model="crips.nilai" class="form-control" required>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">%</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="d-flex justify-content-end">
                             <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-success">Save changes</button>
+                            <button type="submit" class="btn btn-success">Simpan</button>
                         </div>
                     </form>
                 </div>
@@ -82,7 +87,7 @@ import axios from 'axios'
 export default {
     setup() {
         const crips = ref({})
-        const kriteria = ref({asd:213})
+        const kriteria = ref({})
         const $route = useRoute();
         const $router = useRouter();
 
