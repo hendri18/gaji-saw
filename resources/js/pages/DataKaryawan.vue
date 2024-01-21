@@ -3,19 +3,7 @@
     <div class="card">
         <div class="card-header">Data Karyawan</div>
         <div class="card-body">
-            <!-- <table class="display table table-bordered" id="dataTable" v-once>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nama</th>
-                        <th>Alamat</th>
-                        <th>Tgl Masuk Kerja</th>
-                        <th>Status Pernikahan</th>
-                        <th>Pendidikan Terakhir</th>
-                        <th></th>
-                    </tr>
-                </thead> -->
-                <table class="display table table-bordered" id="dataTable" v-once></table>
+            <table class="display table table-bordered" id="dataTable" v-once></table>
         </div>
     </div>
     <!-- Modal -->
@@ -41,7 +29,7 @@
                         <div class="form-group row" v-for="(kr, i) in kriteria">
                             <label class="col-sm-3 col-form-label">{{ kr.nama }}</label>
                             <div class="col-sm-9">
-                                <select name="crip_id[]" class="form-select" v-model="crips_id[kr.id]" required>
+                                <select name="crip_id[]" class="form-select" v-model="crips_id[getKaryawanKriteriaId(kr.id, i)]" required>
                                     <option v-for="crip in kr.crips" :value="crip.id">{{ crip.nama }}</option>
                                 </select>
                             </div>
@@ -103,10 +91,12 @@ export default {
         const karyawan = ref({})
         const kriteria = ref({})
         const crips_id = ref([])
+        const karyawan_kriteria = ref([])
 
         const addForm = () => {
             karyawan.value = {}
             crips_id.value = {}
+            karyawan_kriteria.value = []
             $('#modalFormKaryawan').modal('show');
         }
 
@@ -114,10 +104,10 @@ export default {
             axios.get(`api/karyawan/${id}`).then((response) => {
                 const resp = response.data.data
                 karyawan.value = resp
-                
+                karyawan_kriteria.value = resp.karyawan_kriteria
                 const cs_id = [];
                 (resp.karyawan_kriteria ?? []).map(item => {
-                    cs_id[item.crip.kriteria_id] = item.crip.id
+                    cs_id[item.id] = item.crip.id;
                     return item;
                 });
 
@@ -128,6 +118,11 @@ export default {
                 alert(error.response.data.message ?? error.message);
                 console.error(error)
             });
+        }
+
+        const getKaryawanKriteriaId = (kriteria_id, index) => {
+            const findId = (karyawan_kriteria.value ?? []).find(kk => kk.crip.kriteria_id === kriteria_id);
+            return findId ? findId.id : index;
         }
 
         const saveForm = (e) => {
@@ -173,7 +168,7 @@ export default {
             }
         })
         return {
-            karyawan, kriteria, crips_id, saveForm, addForm, editForm, deleteData
+            karyawan, kriteria, crips_id, karyawan_kriteria, saveForm, addForm, editForm, deleteData, getKaryawanKriteriaId 
         }
     },
     mounted() {

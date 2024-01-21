@@ -30,7 +30,7 @@ class KaryawanController extends Controller
             ");
 
         $karyawan = [];
-        $columns = $this->getColumn();
+        $columns = Kriteria::getColumns();
 
         foreach ($all_data as $data) {
 
@@ -61,7 +61,7 @@ class KaryawanController extends Controller
     {
         return response()->json([
             "data" => [
-                'columns' => $this->getColumn(),
+                'columns' => Kriteria::getColumns(),
             ],
             "message" => "success"
         ]);
@@ -82,9 +82,8 @@ class KaryawanController extends Controller
             $karyawan->nama = $request->nama;
             $karyawan->save();
 
-            foreach (($request->crips_id ?? []) as $kriteria_id => $crip_id) {
+            foreach (($request->crips_id ?? []) as $crip_id) {
                 $kk = new KaryawanKriteria();
-                $kk->kriteria_id = $kriteria_id;
                 $kk->karyawan_id = $karyawan->id;
                 $kk->crip_id = $crip_id;
                 $kk->save();
@@ -139,9 +138,9 @@ class KaryawanController extends Controller
             $karyawan->nama = $request->nama;
             $karyawan->save();
 
-            foreach (($request->crips_id ?? []) as $kriteria_id => $crip_id) {
+            foreach (($request->crips_id ?? []) as $kk_id => $crip_id) {
 
-                $kk = KaryawanKriteria::where('karyawan_id', $id)->where('kriteria_id', $kriteria_id)->first();
+                $kk = KaryawanKriteria::where('id', $kk_id)->first();
                 if (!empty($crip_id)) {
                     $kk->crip_id = $crip_id;
                     $kk->save();

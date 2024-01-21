@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('vue_app');
 });
+Route::get('/test', [App\Http\Controllers\API\SAWController::class, 'getAllData']);
 
 Route::get('{any}', function () { 
     return view('vue_app'); 

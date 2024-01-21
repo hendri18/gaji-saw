@@ -1,5 +1,17 @@
 body {
-    font-family: 'Noto Sans', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.btn {
+    border-radius: 0;
+}
+
+.card, .card-header, .card-footer {
+    border-color: #bdbdbd;
+}
+
+.card-header, .card-footer {
+    background-color: #eaeaea;
 }
 .sidebar-dark .nav-item, 
 .sidebar .nav-item {
@@ -11,7 +23,7 @@ body {
             font-weight: 700;
             color: #808080;
             background-color: #fff;
-            border-radius: 5px;
+            border-radius: 0;
 
             i {
                 color: #808080;

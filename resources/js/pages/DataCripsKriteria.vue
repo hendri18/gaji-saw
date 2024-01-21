@@ -2,7 +2,7 @@
     <router-link to="/data-crips" class="btn btn-warning mb-3 mr-2"><i class="fas fa-fw fa-arrow-left"></i> <span>Kembali</span></router-link>
     <button @click="addForm" class="btn btn-success mb-3">Tambah</button>
     <div class="card">
-        <div class="card-header">Data Sub Kriteria (crips) | Kriteria: {{kriteria.nama}}</div>
+        <div class="card-header">Data Sub Kriteria (crips) | Kriteria: <b>{{kriteria.nama}}</b></div>
         <div class="card-body">
             <table class="display table table-bordered" id="dataTable" v-once>
                 <thead>
@@ -36,14 +36,9 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="alamat" class="col-sm-4 col-form-label">Nilai <br><small>nilai tersedia: {{ crips.max_nilai }}</small></label>
+                            <label for="alamat" class="col-sm-4 col-form-label">Nilai <br></label>
                             <div class="col-sm-4">
-                                <div class="input-group">
-                                    <input type="number" min="1" :max="crips.max_nilai" v-model="crips.nilai" class="form-control" required>
-                                    <div class="input-group-append">
-                                        <span class="input-group-text">%</span>
-                                    </div>
-                                </div>
+                                <input type="number" min="0" v-model="crips.nilai" class="form-control" required>
                             </div>
                         </div>
                         <div class="d-flex justify-content-end">
@@ -93,27 +88,14 @@ export default {
 
         const addForm = async () => {
             const kriteria_id = $route.params.kriteria_id;
-            axios.get(`/api/crips/max-nilai/${kriteria_id}`).then((response) => {
-                const max_nilai = response.data.data.max_nilai;
-                crips.value = {max_nilai: max_nilai}
-                if(max_nilai === 0) {
-                    alert('Nilai sudah maksimal');
-                } else {
-                    $('#modalFormCrips').modal('show')
-                }
-            }).catch((error) => {
-                alert(error.response.data.message ?? error.message);
-                console.error(error)
-            });
-            
+            $('#modalFormCrips').modal('show')
         }
 
         const editForm = async (id) => {
             try {
                 const kriteria_id = $route.params.kriteria_id;
-                const resp = await axios.get(`/api/crips/max-nilai/${kriteria_id}?id=${id}`);
                 axios.get(`/api/crips/${id}`).then((response) => {
-                    crips.value = {...response.data.data, ...{max_nilai: resp.data.data.max_nilai}};
+                    crips.value = response.data.data;
                     $('#modalFormCrips').modal('show');
                 }).catch((error) => {
                     alert(error.response.data.message ?? error.message);

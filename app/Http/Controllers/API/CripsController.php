@@ -61,39 +61,6 @@ class CripsController extends Controller
     }
 
     /**
-     * Get max nilai
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function getMaxNilai(Request $request, $kriteria_id) 
-    {
-        try {
-            $kriteria_id = $request->kriteria_id;
-            $id = $request->id ?? null;
-            if (!empty($kriteria_id)) {
-                $total_nilai = Crips::select('nilai')
-                                ->where('kriteria_id', '=', $kriteria_id)
-                                ->where('id', '!=', $id)
-                                ->sum('nilai') ?? 0;
-            } else {
-                $total_nilai = Crips::select('nilai')->where('kriteria_id', '=', $kriteria_id)->sum('nilai') ?? 0;
-            }
-            
-            return response()->json([
-                "message" => "success",
-                "data" => [
-                    'max_nilai' => Crips::MAX_NILAI - $total_nilai,
-                ],
-            ]);
-        } catch(Exception $e) {
-            return response()->json([
-                "message" => $e->getMessage(),
-            ], 500);
-        }
-
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request

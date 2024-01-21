@@ -37,26 +37,13 @@ const TABLE = {
         this.data = table;
     }
 }
-import { ref, onMounted } from 'vue'
-import axios from 'axios'
 export default {
     setup() {
-        const crips = ref({})
         const linkCripCriteria = (id) => {
             window.__vueApp.$router.push(`/data-crips/${id}`);
         };
-
-        const editForm = async (id) => {
-            axios.get(`api/crips/${id}`).then((response) => {
-                crips.value = {...response.data.data, ...{max_bobot: resp.data.data.max_bobot}};
-                $('#modalFormCrips').modal('show');
-            }).catch((error) => {
-                alert(error.response.data.message ?? error.message);
-                console.error(error)
-            });
-        }
         return {
-            crips, editForm, linkCripCriteria
+            linkCripCriteria
         }
     },
     mounted() {

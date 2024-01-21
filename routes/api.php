@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\KaryawanController;
 use App\Http\Controllers\API\KriteriaController;
 use App\Http\Controllers\API\CripsController;
+use App\Http\Controllers\API\SAWController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -27,5 +28,5 @@ Route::get('kriteria/crips', [KriteriaController::class, 'getKriteriaCrips']);
 Route::apiResource('kriteria', KriteriaController::class);
 Route::get('crips/all-kriteria', [CripsController::class, 'getKriteriaByCrips']);
 Route::get('crips/kriteria/{kriteria_id}', [CripsController::class, 'getCripsByKriteria']);
-Route::get('crips/max-nilai/{kriteria_id}/', [CripsController::class, 'getMaxNilai']);
 Route::apiResource('crips', CripsController::class);
+Route::get('all-data', [SAWController::class, 'getAllData']);
