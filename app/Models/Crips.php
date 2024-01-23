@@ -11,4 +11,5 @@ class Crips extends Model
 
     const MAX_NILAI = 100;
     protected $table = 'crips';
+    public $timestamps = false;
 }

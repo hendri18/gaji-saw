@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreign('kriteria_id')->references('id')->on('kriteria')->onDelete('cascade');
             $table->string('nama');
             $table->integer('nilai');
-            $table->timestamps();
+            // $table->timestamps();
         });
     }
 

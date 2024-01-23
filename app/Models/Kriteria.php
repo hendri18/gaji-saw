@@ -12,6 +12,7 @@ class Kriteria extends Model
 
     const MAX_BOBOT = 100;
     protected $table = 'kriteria';
+    public $timestamps = false;
 
     public function crips()
     {

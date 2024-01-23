@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Kriteria;
 use App\Models\Karyawan;
 
-class SAWController extends Controller
+class PengambilanKeputusanController extends Controller
 {
     public function getAllData() 
     {
@@ -187,9 +187,9 @@ class SAWController extends Controller
             $salary_up =  400000;
         } elseif ($percent >= 70 && $percent < 90 ) {
             $salary_up =  300000;
-        } elseif ($percent >= 40 && $percent < 70) {
+        } elseif ($percent >= 50 && $percent < 70) {
             $salary_up =  200000;
-        } elseif ($percent >= 20 && $percent < 40) {
+        } elseif ($percent >= 30 && $percent < 50) {
             $salary_up =  150000;
         }
 

@@ -36,13 +36,13 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="alamat" class="col-sm-4 col-form-label">Nilai <br></label>
+                            <label for="alamat" class="col-sm-4 col-form-label">Nilai</label>
                             <div class="col-sm-4">
-                                <input type="number" min="0" v-model="crips.nilai" class="form-control" required>
+                                <input type="number" min="1" v-model="crips.nilai" class="form-control" required>
                             </div>
                         </div>
                         <div class="d-flex justify-content-end">
-                            <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Tutup</button>
                             <button type="submit" class="btn btn-success">Simpan</button>
                         </div>
                     </form>

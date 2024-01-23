@@ -7,7 +7,7 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Name</th>
+                        <th>Nama</th>
                         <th>Bobot</th>
                         <th>Tipe</th>
                         <th></th>
@@ -56,7 +56,7 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-end">
-                            <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Tutup</button>
                             <button type="submit" class="btn btn-success">Simpan</button>
                         </div>
                     </form>
@@ -117,7 +117,7 @@ export default {
         const editForm = async (id) => {
             try {
                 const resp = await axios.get(`api/kriteria/max-bobot?kriteria_id=${id}`);
-                axios.get(` ${id}`).then((response) => {
+                axios.get(`api/kriteria/${id}`).then((response) => {
                     kriteria.value = {...response.data.data, ...{max_bobot: resp.data.data.max_bobot}};
                     $('#modalFormKriteria').modal('show');
                 }).catch((error) => {
@@ -144,10 +144,10 @@ export default {
             }).then((response) => {
                 alert(response.data.message ?? '')
                 $('#modalFormKriteria').modal('hide')
-                if (!data.id && response.data.id) {
-                    router.push(`/data-crips/${response.data.id}`);
-                    return;
-                }
+                // if (!data.id && response.data.id) {
+                //     router.push(`/data-crips/${response.data.id}`);
+                //     return;
+                // }
                 setTimeout(() => TABLE.data.ajax.reload(), 500);
             })
             .catch((error) => {

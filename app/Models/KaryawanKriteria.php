@@ -11,6 +11,7 @@ class KaryawanKriteria extends Model
     use HasFactory;
 
     protected $table = 'karyawan_kriteria';
+    public $timestamps = false;
 
     public function crip()
     {

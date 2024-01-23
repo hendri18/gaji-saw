@@ -36,7 +36,7 @@
                         </div>
                         
                         <div class="d-flex justify-content-end">
-                            <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Tutup</button>
                             <button type="submit" class="btn btn-success">Simpan</button>
                         </div>
                     </form>

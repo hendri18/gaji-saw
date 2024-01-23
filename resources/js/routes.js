@@ -5,7 +5,7 @@ const router = createRouter({
     routes: [
         {
             path: '/',
-            component: () => import('./pages/DataKaryawan.vue')
+            component: () => import('./pages/Home.vue')
         },
         {
             path: '/data-karyawan',

@@ -1,6 +1,9 @@
 <template>
     <div id="wrapper">
         <ul class="navbar-nav bg-dark sidebar sidebar-dark accordion" id="accordionSidebar">
+            <li class="nav-item">
+                <router-link to="/" class="nav-link"><i class="fas fa-fw fa-home"></i> <span>Home</span></router-link>
+            </li>
             <!-- <hr class="sidebar-divider my-0"> -->
             <li class="nav-item">
                 <router-link to="/data-kriteria" class="nav-link"><i class="fas fa-fw fa-tachometer-alt"></i> <span>Data Kriteria</span></router-link>
@@ -11,7 +14,7 @@
             </li>
             <!-- <hr class="sidebar-divider my-0"> -->
             <li class="nav-item">
-                <router-link to="/" class="nav-link"><i class="fas fa-fw fa-tachometer-alt"></i> <span>Data Karyawan </span><br></router-link>
+                <router-link to="/data-karyawan" class="nav-link"><i class="fas fa-fw fa-tachometer-alt"></i> <span>Data Karyawan </span><br></router-link>
             </li>
             <!-- <hr class="sidebar-divider my-0"> -->
             <li class="nav-item">

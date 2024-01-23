@@ -1,20 +1,12 @@
 <template>
-    asd
-    <button @click="count++">{{ count }}</button>
+    <h5 class="font-dark">Selamat Datang di</h5>
+    <h4 class="font-dark"><b>Sistem Pendukung Keputusan Kenaikan Gaji Karyawan PT. Senja Solusi</b></h4>
 </template>
 <script>
 
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 export default {
     setup() {
-        const count = ref(0);
-
-        return {
-            count
-        }
-    },
-    mounted() {
-        console.log(this.count) // 0
     }
 }
 </script>

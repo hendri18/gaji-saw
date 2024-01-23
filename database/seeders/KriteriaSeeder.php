@@ -134,31 +134,31 @@ class KriteriaSeeder extends Seeder
         $crip = new Crips();
         $crip->kriteria_id = $kriteria->id;
         $crip->nama = 'Tidak Ada';
-        $crip->nilai = 0;
-        $crip->save();
-
-        $crip = new Crips();
-        $crip->kriteria_id = $kriteria->id;
-        $crip->nama = '1';
         $crip->nilai = 1;
         $crip->save();
 
         $crip = new Crips();
         $crip->kriteria_id = $kriteria->id;
-        $crip->nama = '2';
+        $crip->nama = '1';
         $crip->nilai = 2;
         $crip->save();
 
         $crip = new Crips();
         $crip->kriteria_id = $kriteria->id;
-        $crip->nama = '3';
+        $crip->nama = '2';
         $crip->nilai = 3;
         $crip->save();
 
         $crip = new Crips();
         $crip->kriteria_id = $kriteria->id;
-        $crip->nama = 'lebih dari 3';
+        $crip->nama = '3';
         $crip->nilai = 4;
+        $crip->save();
+
+        $crip = new Crips();
+        $crip->kriteria_id = $kriteria->id;
+        $crip->nama = 'lebih dari 3';
+        $crip->nilai = 5;
         $crip->save();
 
     }

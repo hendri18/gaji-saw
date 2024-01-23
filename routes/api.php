@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\KaryawanController;
 use App\Http\Controllers\API\KriteriaController;
 use App\Http\Controllers\API\CripsController;
-use App\Http\Controllers\API\SAWController;
+use App\Http\Controllers\API\PengambilanKeputusanController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -23,10 +23,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('karyawan/columns', [KaryawanController::class, 'columns']);
 Route::apiResource('karyawan', KaryawanController::class);
+// TODO: change to manual route using route group
 Route::get('kriteria/max-bobot', [KriteriaController::class, 'getMaxBobot']);
 Route::get('kriteria/crips', [KriteriaController::class, 'getKriteriaCrips']);
 Route::apiResource('kriteria', KriteriaController::class);
 Route::get('crips/all-kriteria', [CripsController::class, 'getKriteriaByCrips']);
 Route::get('crips/kriteria/{kriteria_id}', [CripsController::class, 'getCripsByKriteria']);
 Route::apiResource('crips', CripsController::class);
-Route::get('all-data', [SAWController::class, 'getAllData']);
+Route::get('all-data', [PengambilanKeputusanController::class, 'getAllData']);
