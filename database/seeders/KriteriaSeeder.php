@@ -6,6 +6,8 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Kriteria;
 use App\Models\Crips;
+use App\Models\Karyawan;
+use App\Models\KaryawanKriteria;
 
 class KriteriaSeeder extends Seeder
 {
@@ -161,5 +163,27 @@ class KriteriaSeeder extends Seeder
         $crip->nilai = 5;
         $crip->save();
 
+        $alternatif = [
+            ["Agus",1,7,9,14,17],
+            ["Doni",1,7,8,14,17],
+            ["Prama",1,6,9,13,16],
+            ["Clifford",2,6,9,13,15],
+            ["Ahlam",1,5,8,12,15],
+        ];
+
+        foreach ($alternatif as $index => $value) {
+
+            $karyawan = new Karyawan();
+            $karyawan->nama = $value[0];
+            $karyawan->save();
+
+            for ($i=1; $i <= 5; $i++) { 
+                $kk = new KaryawanKriteria();
+                $kk->karyawan_id = $karyawan->id;
+                $kk->crip_id = $value[$i];
+                $kk->save();
+            }
+            
+        }
     }
 }

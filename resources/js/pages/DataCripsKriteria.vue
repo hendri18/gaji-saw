@@ -98,11 +98,11 @@ export default {
                     crips.value = response.data.data;
                     $('#modalFormCrips').modal('show');
                 }).catch((error) => {
-                    alert(error.response.data.message ?? error.message);
+                    popupError(error.response.data.message ?? error.message);
                     console.error(error)
                 });
             } catch (error) {
-                alert(error)
+                popupError(error)
                 console.log(error)
             }
             
@@ -119,25 +119,25 @@ export default {
                 url: url,
                 data: data
             }).then((response) => {
-                alert(response.data.message ?? '')
+                popupSuccess(response.data.message ?? '')
                 $('#modalFormCrips').modal('hide')
                 setTimeout(() => TABLE.data.ajax.reload(), 500);
             })
             .catch((error) => {
-                alert(error.response.data.message ?? error.message)
+                popupError(error.response.data.message ?? error.message)
                 console.error(error)
             });
         }
 
         const deleteData = async (id, name) => {
-            const confirmation = confirm(`Hapus Data ${name}?`);
-            if (!confirmation) return;
+            const confirmation = await popupConfirm(`Hapus Data ${name}?`);
+            if (!confirmation.isConfirmed) return;
 
             axios.delete(`/api/crips/${id}`).then((response) => {
-                alert(response.data.message);
+                popupSuccess(response.data.message);
                 setTimeout(() => TABLE.data.ajax.reload(), 500);
             }).catch((error) => {
-                alert(error.response.data.message ?? error.message);
+                popupError(error.response.data.message ?? error.message);
                 console.error(error)
             });
 
@@ -150,7 +150,7 @@ export default {
                 const data_kriteria = await axios.get(`/api/kriteria/${kriteria_id}`);
                 kriteria.value = data_kriteria.data.data;
             } catch (error) {
-                alert(error)
+                popupError(error)
                 console.error(error)
                 $route.push('/data-crips')
             }

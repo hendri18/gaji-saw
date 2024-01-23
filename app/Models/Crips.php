@@ -9,7 +9,6 @@ class Crips extends Model
 {
     use HasFactory;
 
-    const MAX_NILAI = 100;
     protected $table = 'crips';
     public $timestamps = false;
 }

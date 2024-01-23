@@ -82,7 +82,7 @@ export default {
                 rankings.value = resp.data.data.rankings;
 
             } catch (error) {
-                alert(error)
+                popupError(error)
                 console.error(error)
             }
         })

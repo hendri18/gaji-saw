@@ -103,12 +103,12 @@ export default {
                 const max_bobot = response.data.data.max_bobot;
                 kriteria.value = {max_bobot: max_bobot}
                 if(max_bobot === 0) {
-                    alert('Bobot sudah maksimal');
+                    popupError('Bobot sudah maksimal');
                 } else {
                     $('#modalFormKriteria').modal('show')
                 }
             }).catch((error) => {
-                alert(error.response.data.message ?? error.message);
+                popupError(error.response.data.message ?? error.message);
                 console.error(error)
             });
             
@@ -121,11 +121,11 @@ export default {
                     kriteria.value = {...response.data.data, ...{max_bobot: resp.data.data.max_bobot}};
                     $('#modalFormKriteria').modal('show');
                 }).catch((error) => {
-                    alert(error.response.data.message ?? error.message);
+                    popupError(error.response.data.message ?? error.message);
                     console.error(error)
                 });
             } catch (error) {
-                alert(error)
+                popupError(error)
                 console.log(error)
             }
             
@@ -142,7 +142,7 @@ export default {
                 url: url,
                 data: data
             }).then((response) => {
-                alert(response.data.message ?? '')
+                popupSuccess(response.data.message ?? '')
                 $('#modalFormKriteria').modal('hide')
                 // if (!data.id && response.data.id) {
                 //     router.push(`/data-crips/${response.data.id}`);
@@ -151,20 +151,20 @@ export default {
                 setTimeout(() => TABLE.data.ajax.reload(), 500);
             })
             .catch((error) => {
-                alert(error.response.data.message ?? error.message)
+                popupError(error.response.data.message ?? error.message)
                 console.error(error)
             });
         }
 
         const deleteData = async (id, name) => {
-            const confirmation = confirm(`Hapus Data ${name}?`);
-            if (!confirmation) return;
+            const confirmation = await popupConfirm(`Hapus Data ${name}?`);
+            if (!confirmation.isConfirmed) return;
 
             axios.delete(`api/kriteria/${id}`).then((response) => {
-                alert(response.data.message);
+                popupSuccess(response.data.message);
                 setTimeout(() => TABLE.data.ajax.reload(), 500);
             }).catch((error) => {
-                alert(error.response.data.message ?? error.message);
+                popupError(error.response.data.message ?? error.message);
                 console.error(error)
             });
 

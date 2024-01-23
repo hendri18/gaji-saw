@@ -10,7 +10,7 @@ class Kriteria extends Model
 {
     use HasFactory;
 
-    const MAX_BOBOT = 100;
+    const MAX_BOBOT = 110;
     protected $table = 'kriteria';
     public $timestamps = false;
 

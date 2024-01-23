@@ -61,7 +61,7 @@ const TABLE = {
             })
             
         } catch (error) {
-            alert(error.response.data.message ?? error.message);
+            popupError(error.response.data.message ?? error.message);
             console.error(error)
         }
 
@@ -115,7 +115,7 @@ export default {
 
                 $('#modalFormKaryawan').modal('show');
             }).catch((error) => {
-                alert(error.response.data.message ?? error.message);
+                popupError(error.response.data.message ?? error.message);
                 console.error(error)
             });
         }
@@ -135,25 +135,25 @@ export default {
                 url: url,
                 data: data
             }).then((response) => {
-                alert(response.data.message ?? '')
+                popupSuccess(response.data.message ?? '')
                 $('#modalFormKaryawan').modal('hide')
                 setTimeout(() => TABLE.data.ajax.reload(), 500);
             })
             .catch((error) => {
-                alert(error.response.data.message ?? error.message)
+                popupError(error.response.data.message ?? error.message)
                 console.error(error)
             });
         }
 
         const deleteData = async (id, name) => {
-            const confirmation = confirm(`Hapus Data ${name}?`);
-            if (!confirmation) return;
+            const confirmation = await popupConfirm(`Hapus Data ${name}?`);
+            if (!confirmation.isConfirmed) return;
 
             axios.delete(`api/karyawan/${id}`).then((response) => {
-                alert(response.data.message);
+                popupSuccess(response.data.message);
                 setTimeout(() => TABLE.data.ajax.reload(), 500);
             }).catch((error) => {
-                alert(error.response.data.message ?? error.message);
+                popupError(error.response.data.message ?? error.message);
                 console.error(error)
             });
         }
@@ -163,7 +163,7 @@ export default {
                 const resp = await axios.get(`api/kriteria/crips`);
                 kriteria.value = resp.data.data;
             } catch (error) {
-                alert(error)
+                popupError(error)
                 console.error(error)
             }
         })

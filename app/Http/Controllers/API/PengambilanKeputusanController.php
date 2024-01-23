@@ -142,6 +142,7 @@ class PengambilanKeputusanController extends Controller
         $no = 1;
         $rankings = array_map(function($item) use (&$no) {
             $item['rank'] = $no;
+            $item['total'] = round($item['total'], 2);
             $item['percentage'] = (int) round($item['total'] * 100, 0);
             $item['salary_increase'] = $this->getSalaryIncrease($item['percentage']);
             $no++;
@@ -189,7 +190,7 @@ class PengambilanKeputusanController extends Controller
             $salary_up =  300000;
         } elseif ($percent >= 50 && $percent < 70) {
             $salary_up =  200000;
-        } elseif ($percent >= 30 && $percent < 50) {
+        } elseif ($percent >= 40 && $percent < 50) {
             $salary_up =  150000;
         }
 
