@@ -23,6 +23,11 @@ const TABLE = {
             serverSide: true,
             destroy: true,
             ajax: "api/crips/all-kriteria",
+            layout: {
+                topStart: {
+                    buttons: ['pageLength', 'excelHtml5']
+                }
+            },
             columnDefs: [
                 {targets: 0, defaultContent:"", data: 'id', },
                 {targets: 1, defaultContent:"", data: 'nama', },

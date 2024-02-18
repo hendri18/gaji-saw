@@ -9,23 +9,23 @@ const router = createRouter({
         },
         {
             path: '/data-karyawan',
-            component: () => import('./pages/DataKaryawan.vue')
+            component: () => window.hasRoles(['admin', 'staff']) ? import('./pages/DataKaryawan.vue') : import('./pages/Home.vue')
         },
         {
             path: '/data-kriteria',
-            component: () => import('./pages/DataKriteria.vue')
+            component: () => window.hasRoles(['admin', 'staff']) ? import('./pages/DataKriteria.vue') : import('./pages/Home.vue')
         },
         {
             path: '/data-crips/',
-            component: () => import('./pages/DataCrips.vue')
+            component: () => window.hasRoles(['admin', 'staff']) ? import('./pages/DataCrips.vue') : import('./pages/Home.vue')
         },
         {
             path: '/data-crips/:kriteria_id',
-            component: () => import('./pages/DataCripsKriteria.vue')
+            component: () => window.hasRoles(['admin', 'staff']) ? import('./pages/DataCripsKriteria.vue') : import('./pages/Home.vue')
         },
         {
             path: '/pengambilan-keputusan',
-            component: () => import('./pages/PengambilanKeputusan.vue')
+            component: () => window.hasRoles(['admin', 'staff']) ? import('./pages/PengambilanKeputusan.vue') : import('./pages/Home.vue')
         },
     ],
 })

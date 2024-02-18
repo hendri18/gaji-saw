@@ -74,6 +74,11 @@ const TABLE = {
             serverSide: true,
             destroy: true,
             ajax: "api/kriteria",
+            layout: {
+                topStart: {
+                    buttons: ['pageLength', 'excelHtml5', 'pdfHtml5']
+                }
+            },
             columnDefs: [
                 {targets: 0, defaultContent:"", data: 'id', },
                 {targets: 1, defaultContent:"", data: 'nama', },

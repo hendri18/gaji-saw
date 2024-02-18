@@ -1,0 +1,40 @@
+// Fonts
+@import url('https://fonts.bunny.net/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import 'bootstrap/scss/bootstrap';
+
+html, body {
+    height: 100%;
+}
+body {
+    background-color: #4e73df;
+    background-image: linear-gradient(180deg,#4e73df 10%,#224abe 100%);
+    background-size: cover;
+
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+
+div#app, main {
+    height: 100%;
+}
+
+.card {
+    box-shadow: 0 1rem 3rem rgba(0,0,0,.175)!important;
+}
+
+
+input {
+    border-radius: 10rem!important;
+    border: 1px solid #d1d3e2!important;
+    padding: 14px!important;
+}
+
+.btn {
+    border-radius: 10rem!important;
+    padding: 7px 45px!important;
+}

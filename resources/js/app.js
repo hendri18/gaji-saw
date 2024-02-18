@@ -33,6 +33,18 @@ window.popupError = function(text) {
     });
 }
 
-const app = createApp(App)
+window.hasRoles = function(roles) {
+
+    if (typeof user !== 'undefined' && user.roles) {
+        if (typeof roles === 'object') {
+            return user.roles.find(item => roles.includes(item.name)) ? true : false;
+        } else if (typeof roles === 'string') {
+            return user.roles.find(item => roles == item.name) ? true : false;
+        }
+    }
+    return false;
+}
+
+const app = createApp(user ? App : {})
 app.use(router)
 app.mount("#app")

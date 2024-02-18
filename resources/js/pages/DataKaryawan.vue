@@ -69,6 +69,11 @@ const TABLE = {
             processing: true,
             serverSide: true,
             ajax: "api/karyawan",
+            layout: {
+                topStart: {
+                    buttons: ['pageLength', 'excelHtml5', 'pdfHtml5']
+                }
+            },
             columns: columns.length > 0 ? columns : [{title: '&nbsp;'}],
             columnDefs: [
                 {targets: "_all", defaultContent: "", },

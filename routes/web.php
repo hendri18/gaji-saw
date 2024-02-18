@@ -12,12 +12,18 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Auth::routes();
+Route::middleware(['auth'])->group(function () {
 
-Route::get('/', function () {
-    return view('vue_app');
+    Route::get('/logout', [App\Http\Controllers\DashboardController::class, 'logout'])->name('logout');
+    Route::get('/export', [App\Http\Controllers\DashboardController::class, 'export'])->name('export');
+    Route::get('/', function () {
+        return view('vue_app');
+    });
+    
+    Route::get('{any}', function () { 
+        return view('vue_app'); 
+    })->where('any', '.*'); 
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 });
-Route::get('/test', [App\Http\Controllers\API\PengambilanKeputusanController::class, 'getAllData']);
 
-Route::get('{any}', function () { 
-    return view('vue_app'); 
-})->where('any', '.*'); 

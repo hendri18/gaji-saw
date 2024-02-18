@@ -54,11 +54,15 @@
                         <td>{{ ranking.nama }}</td>
                         <td>{{ ranking.total }}</td>
                         <td>{{ ranking.percentage }}</td>
-                        <td>{{ ranking.salary_increase }}</td>
+                        <td><b>{{ ranking.salary_increase }}</b></td>
                     </tr>
                 </tbody>
             </table>
         </div>
+    </div>
+    <div class="mb-3 d-flex justify-content-end">
+        <a href="/export" class="btn btn-success mr-2">Export Excel</a>
+        <a href="/export?type=pdf" class="btn btn-secondary">Export PDF</a>
     </div>
 </template>
 <script>
@@ -82,7 +86,8 @@ export default {
                 rankings.value = resp.data.data.rankings;
 
             } catch (error) {
-                popupError(error)
+                const error_message = error.response.data.message ?? error.message;
+                popupError(error_message)
                 console.error(error)
             }
         })
