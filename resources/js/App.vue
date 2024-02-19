@@ -3,7 +3,7 @@
         <ul class="navbar-nav bg-dark sidebar sidebar-dark accordion" id="accordionSidebar">
             <div class="pt-4 pb-4 text-center text-white"><i class="fa fa-user mr-2"></i> {{ user.name ?? '' }}</div>
             <hr class="sidebar-divider my-0">
-            <template v-if="hasRoles(['admin', 'staff'])">
+            <template v-if="hasRoles(['atasan', 'staff'])">
             <li class="nav-item">
                 <router-link to="/" class="nav-link"><i class="fas fa-fw fa-home"></i> <span>Home</span></router-link>
             </li>
@@ -16,16 +16,20 @@
             <li class="nav-item">
                 <router-link to="/data-karyawan" class="nav-link"><i class="fas fa-fw fa-tachometer-alt"></i> <span>Data Karyawan </span><br></router-link>
             </li>
+            </template>
+            <template v-if="hasRoles('atasan')">
             <li class="nav-item">
-                <router-link to="/pengambilan-keputusan" class="nav-link"><i class="fas fa-fw fa-tachometer-alt"></i> <span>Persentase Kenaikan Gaji</span></router-link>
+                <router-link to="/persentase-kenaikan" class="nav-link"><i class="fas fa-fw fa-tachometer-alt"></i> <span>Persentase Kenaikan Gaji</span></router-link>
             </li>
+            </template>
+            <template v-if="hasRoles(['atasan', 'staff'])">
             <li class="nav-item">
                 <router-link to="/pengambilan-keputusan" class="nav-link"><i class="fas fa-fw fa-tachometer-alt"></i> <span>Pengambilan Keputusan</span></router-link>
             </li>
             </template>
-            <template v-if="hasRoles('admin')">
+            <template v-if="hasRoles('atasan')">
                 <li class="nav-item">
-                    <router-link to="/pengambilan-keputusan" class="nav-link"><i class="fas fa-fw fa-tachometer-alt"></i> <span>Data User</span></router-link>
+                    <router-link to="/data-user" class="nav-link"><i class="fas fa-fw fa-users"></i> <span>Data User</span></router-link>
                 </li>
             </template>
         </ul>

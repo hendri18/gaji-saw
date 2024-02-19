@@ -25,6 +25,7 @@ class KriteriaController extends Controller
             WHERE id IS NOT NULL $search 
             ");
         $kriteria = collect($kriteria);
+        
         return DataTables::of($kriteria)
         ->filter(function ($query) {})
         ->make(true);

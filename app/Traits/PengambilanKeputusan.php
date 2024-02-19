@@ -4,6 +4,7 @@ namespace App\Traits;
 use Illuminate\Http\Request;
 use App\Models\Kriteria;
 use App\Models\Karyawan;
+use App\Models\PersentaseKenaikan;
 
 trait PengambilanKeputusan {
 
@@ -119,11 +120,12 @@ trait PengambilanKeputusan {
             }
         });
         $no = 1;
-        $rankings = array_map(function($item) use (&$no) {
+        $pk = PersentaseKenaikan::all();
+        $rankings = array_map(function($item) use (&$no, $pk) {
             $item['rank'] = $no;
             $item['total'] = round($item['total'], 2);
             $item['percentage'] = (int) round($item['total'] * 100, 0);
-            $item['salary_increase'] = $this->getSalaryIncrease($item['percentage']);
+            $item['salary_increase'] = $this->getSalaryIncrease($item['percentage'], $pk);
             $no++;
             return $item;
         }, $rankings);
@@ -160,19 +162,14 @@ trait PengambilanKeputusan {
 
     }
 
-    private function getSalaryIncrease($percent)
+    private function getSalaryIncrease($percent, $pk)
     {
-        $salary_up = 0;
-        if ($percent >= 90) {
-            $salary_up =  400000;
-        } elseif ($percent >= 70 && $percent < 90 ) {
-            $salary_up =  300000;
-        } elseif ($percent >= 50 && $percent < 70) {
-            $salary_up =  200000;
-        } elseif ($percent >= 40 && $percent < 50) {
-            $salary_up =  150000;
+        foreach ($pk as $data) {
+            if ($percent > $data->dari && $percent <= $data->sampai) {
+                $salary_up = $data->nilai;
+                return $salary_up !== 0 ? 'Rp. '.number_format($salary_up, 2, ",", ".") : 'Tidak Memenuhi Kriteria';
+            }
         }
-
-        return $salary_up !== 0 ? 'Rp. '.number_format($salary_up, 2, ",", ".") : 'Tidak Memenuhi Kriteria';
+        return 'Tidak Memenuhi Kriteria';        
     }
 }

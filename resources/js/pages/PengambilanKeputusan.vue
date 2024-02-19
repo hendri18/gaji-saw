@@ -63,6 +63,7 @@
     <div class="mb-3 d-flex justify-content-end">
         <a href="/export" class="btn btn-success mr-2">Export Excel</a>
         <a href="/export?type=pdf" class="btn btn-secondary">Export PDF</a>
+        <button type="button" class="btn btn-primary" @click="save">Simpan</button>
     </div>
 </template>
 <script>
@@ -92,8 +93,31 @@ export default {
             }
         })
 
+        const save = () => {
+            const url = 'api/histori';
+            const method = `post`;
+            axios({
+                method: method,
+                url: url,
+                data: {
+                    columns: columns.value,
+                    karyawan_kriteria: karyawan_kriteria.value,
+                    normalization: normalization.value,
+                    rankings: rankings.value,
+                }
+            }).then((response) => {
+                popupSuccess(response.data.message ?? '')
+                $('#modalFormKriteria').modal('hide')
+                setTimeout(() => TABLE.data.ajax.reload(), 500);
+            })
+            .catch((error) => {
+                popupError(error.response.data.message ?? error.message)
+                console.error(error)
+            });
+        }
+
         return {
-            columns, crips, karyawan_kriteria, normalization, rankings
+            columns, crips, karyawan_kriteria, normalization, rankings, save
         }
     },
     mounted() {

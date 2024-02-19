@@ -13,6 +13,7 @@ use App\Models\Kriteria;
 use App\Models\Crips;
 use App\Models\Karyawan;
 use App\Models\KaryawanKriteria;
+use App\Models\PersentaseKenaikan;
 
 class KriteriaSeeder extends Seeder
 {
@@ -23,18 +24,18 @@ class KriteriaSeeder extends Seeder
      */
     public function run()
     {
-        $role = Role::create(['name' => 'admin']);
+        $role = Role::create(['name' => 'atasan']);
         $user = User::create([
-            'name' => 'Admin Hendri',
-            'email' => 'admin@hendri.com',
-            'password' => Hash::make('admin123'),
+            'name' => 'atasan Hendri',
+            'email' => 'atasan@senja.com',
+            'password' => Hash::make('atasan123'),
         ]);
         $user->assignRole($role);
         
         $role = Role::create(['name' => 'staff']);
         $user = User::create([
             'name' => 'Staff Hendri',
-            'email' => 'staff@hendri.com',
+            'email' => 'staff@senja.com',
             'password' => Hash::make('staff123')
         ]);
         $user->assignRole($role);
@@ -190,6 +191,21 @@ class KriteriaSeeder extends Seeder
             ["Prama",1,6,9,13,16],
             ["Clifford",2,6,9,13,15],
             ["Ahlam",1,5,8,12,15],
+            ["Asep Angga",1,6,9,13,16],
+            ["Daniel",1,6,9,13,16],
+            ["Fahmi Shiddiq",1,6,9,13,16],
+            ["Feri",1,6,9,13,16],
+            ["Henry",1,6,9,13,16],
+            ["Irhas",1,6,9,13,16],
+            ["Julius",1,6,9,13,16],
+            ["Leni",1,6,9,13,16],
+            ["Rakha",1,6,9,13,16],
+            ["Tetty",1,6,9,13,16],
+            ["Anthonius",1,6,9,13,16],
+            ["Derry",1,6,9,13,16],
+            ["Fabian",1,6,9,13,16],
+            ["Fandi",1,6,9,13,16],
+            ["Nicholas",1,6,9,13,16],
         ];
 
         foreach ($alternatif as $index => $value) {
@@ -206,5 +222,11 @@ class KriteriaSeeder extends Seeder
             }
             
         }
+
+        PersentaseKenaikan::create(['dari' => 0, 'sampai' => 40, 'nilai' => 0]);
+        PersentaseKenaikan::create(['dari' => 40, 'sampai' => 50, 'nilai' => 150000]);
+        PersentaseKenaikan::create(['dari' => 50, 'sampai' => 70, 'nilai' => 200000]);
+        PersentaseKenaikan::create(['dari' => 70, 'sampai' => 90, 'nilai' => 300000]);
+        PersentaseKenaikan::create(['dari' => 90, 'sampai' => 100, 'nilai' => 400000]);
     }
 }

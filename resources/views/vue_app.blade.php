@@ -15,6 +15,7 @@
         <link rel="stylesheet" href="{{asset('css/sb-admin-2.min.css')}}">
         <link href="https://cdn.datatables.net/2.0.0/css/dataTables.bootstrap4.css" rel="stylesheet">
         <link href="https://cdn.datatables.net/buttons/3.0.0/css/buttons.bootstrap4.css" rel="stylesheet">
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
  
         @vite('resources/css/style.scss')
         <script>
@@ -36,6 +37,7 @@
         <script src="https://cdn.datatables.net/buttons/3.0.0/js/dataTables.buttons.js"></script>
         <script src="https://cdn.datatables.net/buttons/3.0.0/js/buttons.bootstrap4.js"></script>
         <script src="https://cdn.datatables.net/buttons/3.0.0/js/buttons.html5.js"></script>
+        <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 
         
         <script src="{{asset('js/sb-admin-2.min.js')}}"></script>
