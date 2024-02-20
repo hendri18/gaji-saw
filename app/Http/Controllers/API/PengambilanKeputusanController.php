@@ -18,14 +18,15 @@ class PengambilanKeputusanController extends Controller
     {
         try {
             $data = $this->calculation();
-
+            $dates = Histori::select('tanggal')->pluck('tanggal');
             return response()->json([
                 "message" => "success",
                 "data" => [
                     'columns' => $data['columns'],
                     'karyawan_kriteria' => $data['karyawan_kriteria'],
                     'normalization' => $data['normalization'],
-                    'rankings' => $data['rankings']
+                    'rankings' => $data['rankings'],
+                    'dates' => $dates
                 ]
             ]);
         } catch(Exception $e) {
@@ -38,7 +39,10 @@ class PengambilanKeputusanController extends Controller
     public function save(Request $request)
     {
         try {
-            $histori = new Histori();
+            $histori = Histori::whereDate('tanggal', '=', date('Y-m-d'))->first();
+            if (empty($histori)) {
+                $histori = new Histori();
+            }
             $histori->tanggal = date('Y-m-d');
             $histori->columns = json_encode($request->columns);
             $histori->karyawan_kriteria = json_encode($request->karyawan_kriteria);
@@ -60,6 +64,7 @@ class PengambilanKeputusanController extends Controller
     {
         try {
             $histori = Histori::whereDate('tanggal', '=', $request->tanggal)->first();
+            
             return response()->json([
                 "message" => "success",
                 "data" => $histori,
