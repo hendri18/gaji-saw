@@ -17,11 +17,6 @@
                 <router-link to="/data-karyawan" class="nav-link"><i class="fas fa-fw fa-tachometer-alt"></i> <span>Data Karyawan </span><br></router-link>
             </li>
             </template>
-            <template v-if="hasRoles('atasan')">
-            <li class="nav-item">
-                <router-link to="/persentase-kenaikan" class="nav-link"><i class="fas fa-fw fa-tachometer-alt"></i> <span>Persentase Kenaikan Gaji</span></router-link>
-            </li>
-            </template>
             <template v-if="hasRoles(['atasan', 'staff'])">
             <li class="nav-item">
                 <router-link to="/pengambilan-keputusan" class="nav-link"><i class="fas fa-fw fa-tachometer-alt"></i> <span>Pengambilan Keputusan</span></router-link>
@@ -30,6 +25,9 @@
             <template v-if="hasRoles('atasan')">
                 <li class="nav-item">
                     <router-link to="/data-user" class="nav-link"><i class="fas fa-fw fa-users"></i> <span>User Dashboard</span></router-link>
+                </li>
+                <li class="nav-item">
+                    <router-link to="/persentase-kenaikan" class="nav-link"><i class="fas fa-fw fa-tachometer-alt"></i> <span>Persentase Kenaikan Gaji</span></router-link>
                 </li>
             </template>
         </ul>

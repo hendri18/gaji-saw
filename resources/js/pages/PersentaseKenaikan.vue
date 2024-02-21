@@ -1,6 +1,6 @@
 <template>
     <div class="card">
-        <div class="card-header">Data Persentase Kenaikan</div>
+        <div class="card-header">Persentase Kenaikan</div>
         <div class="card-body">
             <form action="api/persentase-kenaikan" method="post" v-on:submit="saveForm" id="form_pk" ref="form_pk">
                 <ol>
