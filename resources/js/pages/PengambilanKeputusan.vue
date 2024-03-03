@@ -63,8 +63,8 @@
     </div>
     <div class="mb-3 d-flex justify-content-between">
         <div>
-            <div>
-                Histori: <div class="d-flex"><input type="date" class="form-control" v-model="tgl_histori"> <button class="btn btn-primary" :class="tgl_histori === '' ? 'disabled' : ''" @click="getHistory">Tampilkan</button><button class="btn btn-danger ml-2" v-if="show_history">Reset</button></div>
+            <div class="d-flex align-items-center">
+                Histori: <div class="ml-2 d-flex"><select name="tgl_histori" v-model="tgl_histori" id=""><option :value="date" v-for="date in dates">{{ date }}</option></select><button class="btn btn-primary" :class="tgl_histori === '' ? 'disabled' : ''" @click="getHistory">Tampilkan</button><button class="btn btn-danger ml-2" v-if="show_history" @click="resetHistory">Reset</button></div>
             </div>
             
         </div>
@@ -89,6 +89,7 @@ export default {
         const rankings = ref([])
         const tgl_histori = ref('');
         const show_history = ref(false);
+        const dates = ref([]);
 
         onMounted (async () => {
             try {
@@ -97,7 +98,7 @@ export default {
                 karyawan_kriteria.value = resp.data.data.karyawan_kriteria;
                 normalization.value = resp.data.data.normalization;
                 rankings.value = resp.data.data.rankings;
-
+                dates.value = resp.data.data.dates;
             } catch (error) {
                 const error_message = error.response.data.message ?? error.message;
                 popupError(error_message)
@@ -156,6 +157,9 @@ export default {
                 karyawan_kriteria.value = resp.data.data.karyawan_kriteria;
                 normalization.value = resp.data.data.normalization;
                 rankings.value = resp.data.data.rankings;
+                show_history.value = false;
+                tgl_histori.value = '';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
 
             } catch (error) {
                 const error_message = error.response.data.message ?? error.message;
@@ -165,7 +169,7 @@ export default {
         }
 
         return {
-            columns, crips, karyawan_kriteria, normalization, rankings, save, tgl_histori, show_history, getHistory, resetHistory
+            columns, crips, karyawan_kriteria, normalization, rankings, save, tgl_histori, show_history, getHistory, resetHistory, dates
         }
     },
     mounted() {

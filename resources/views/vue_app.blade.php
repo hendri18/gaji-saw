@@ -18,8 +18,11 @@
         <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
  
         @vite('resources/css/style.scss')
+        @php
+            $user_id = Auth::user()->id;
+        @endphp
         <script>
-            const user = {!! json_encode(Auth::user()->with('roles')->first()) !!}
+            const user = {!! json_encode( \App\Models\User::where('id', $user_id)->with('roles')->first() ) !!}
         </script>
     </head>
     <body>

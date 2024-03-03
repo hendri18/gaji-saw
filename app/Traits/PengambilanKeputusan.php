@@ -165,7 +165,7 @@ trait PengambilanKeputusan {
     private function getSalaryIncrease($percent, $pk)
     {
         foreach ($pk as $data) {
-            if ($percent > $data->dari && $percent <= $data->sampai) {
+            if ($percent >= $data->dari && (($data->sampai == 100 && $percent <= $data->sampai) || $percent < $data->sampai)) {
                 $salary_up = $data->nilai;
                 return $salary_up !== 0 ? 'Rp. '.number_format($salary_up, 2, ",", ".") : 'Tidak Memenuhi Kriteria';
             }
