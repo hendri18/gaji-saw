@@ -33,7 +33,7 @@ const router = createRouter({
         },
         {
             path: '/data-user',
-            component: () => window.hasRoles(['atasan']) ? import('./pages/DataUser.vue') : import('./pages/Home.vue')
+            component: () => window.hasRoles(['administrator']) ? import('./pages/DataUser.vue') : import('./pages/Home.vue')
         },
         {
             path: '/persentase-kenaikan',
