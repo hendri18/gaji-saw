@@ -5,23 +5,23 @@
             <form action="api/persentase-kenaikan" method="post" v-on:submit="saveForm" id="form_pk" ref="form_pk">
                 <ol>
                     <li v-for="(data, i) in pk">
-                        <div class="col-md-8">
+                        <div class="col-12 col-md-12 col-lg-12 col-xl-9">
                             <div class="row mb-3">
-                                <div class="col-3 d-flex align-items-center">
+                                <div class="col-md-3 d-flex align-items-center">
                                     <label for="" class="m-0 mr-2">Mulai: </label>
                                     <div class="input-group">
                                         <input type="number" class="form-control" v-model="pk[i]['dari']" :min="i == 0 ? 0 : pk[i - 1]['sampai']" :max="pk[i + 1] ? pk[i + 1]['dari'] : 100">
                                         <span class="input-group-text">%</span>
                                     </div>
                                 </div>
-                                <div class="col-3 d-flex align-items-center">
+                                <div class="col-md-3 d-flex align-items-center">
                                     <label for="" class="m-0 mr-2">Sampai: </label>
                                     <div class="input-group">
                                         <input type="number" class="form-control" v-model="pk[i]['sampai']" :min="pk[i]['dari']" :max="pk[i + 1] ? pk[i + 1]['dari'] : 100">
                                         <span class="input-group-text">%</span>
                                     </div>
                                 </div>
-                                <div class="col-4 d-flex align-items-center">
+                                <div class="col-md-4 d-flex align-items-center">
                                     <label for="" class="m-0 mr-2">Nilai: </label>
                                     <div class="input-group">
                                         <span class="input-group-text">Rp. </span>

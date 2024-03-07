@@ -77,7 +77,6 @@
                 <a href="/export?type=pdf" class="btn btn-secondary mr-2">Export PDF</a>
                 <button type="button" class="btn btn-primary" @click="save" v-if="hasRoles('atasan')">Simpan</button>
             </div>
-            
         </div>
     </template>
     <template v-if="type === 'table'">

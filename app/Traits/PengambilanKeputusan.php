@@ -16,7 +16,7 @@ trait PengambilanKeputusan {
                 (SELECT crips.nama c_nama, crips.nilai c_nilai, karyawan_kriteria.crip_id, karyawan_kriteria.karyawan_id, crips.kriteria_id FROM karyawan_kriteria 
                  INNER JOIN crips ON crips.id = karyawan_kriteria.crip_id) kk
                 ON kk.karyawan_id = karyawan.id
-            WHERE id IS NOT NULL 
+            WHERE id IS NOT NULL
                 ");
 
             $columns = Kriteria::getColumns(false);

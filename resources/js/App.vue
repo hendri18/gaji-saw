@@ -3,10 +3,12 @@
         <ul class="navbar-nav bg-dark sidebar sidebar-dark accordion" id="accordionSidebar">
             <div class="pt-4 pb-4 text-center text-white"><i class="fa fa-user mr-2"></i> {{ user.name ?? '' }}</div>
             <hr class="sidebar-divider my-0">
-            <template v-if="hasRoles(['atasan', 'staff'])">
+            <template v-if="hasRoles(['atasan','staff'])">
             <li class="nav-item">
                 <router-link to="/" class="nav-link"><i class="fas fa-fw fa-home"></i> <span>Home</span></router-link>
             </li>
+            </template>
+            <template v-if="hasRoles(['staff'])">
             <li class="nav-item">
                 <router-link to="/data-kriteria" class="nav-link"><i class="fas fa-fw fa-tachometer-alt"></i> <span>Data Kriteria</span></router-link>
             </li>

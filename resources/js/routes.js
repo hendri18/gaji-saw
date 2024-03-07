@@ -13,19 +13,19 @@ const router = createRouter({
         },
         {
             path: '/data-karyawan',
-            component: () => window.hasRoles(['atasan', 'staff']) ? import('./pages/DataKaryawan.vue') : import('./pages/Home.vue')
+            component: () => window.hasRoles(['staff']) ? import('./pages/DataKaryawan.vue') : import('./pages/Home.vue')
         },
         {
             path: '/data-kriteria',
-            component: () => window.hasRoles(['atasan', 'staff']) ? import('./pages/DataKriteria.vue') : import('./pages/Home.vue')
+            component: () => window.hasRoles(['staff']) ? import('./pages/DataKriteria.vue') : import('./pages/Home.vue')
         },
         {
             path: '/data-crips/',
-            component: () => window.hasRoles(['atasan', 'staff']) ? import('./pages/DataCrips.vue') : import('./pages/Home.vue')
+            component: () => window.hasRoles(['staff']) ? import('./pages/DataCrips.vue') : import('./pages/Home.vue')
         },
         {
             path: '/data-crips/:kriteria_id',
-            component: () => window.hasRoles(['atasan', 'staff']) ? import('./pages/DataCripsKriteria.vue') : import('./pages/Home.vue')
+            component: () => window.hasRoles(['staff']) ? import('./pages/DataCripsKriteria.vue') : import('./pages/Home.vue')
         },
         {
             path: '/pengambilan-keputusan',
@@ -44,5 +44,5 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
     return next()
 })
-
+// grafik batang per orang per kenaikan gaji 200 - 400 
 export default router;

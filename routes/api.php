@@ -6,6 +6,7 @@ use App\Http\Controllers\API\KaryawanController;
 use App\Http\Controllers\API\KriteriaController;
 use App\Http\Controllers\API\CripsController;
 use App\Http\Controllers\API\PengambilanKeputusanController;
+use App\Http\Controllers\API\ChartController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -38,3 +39,7 @@ Route::get('all-roles', [App\Http\Controllers\API\UserController::class, 'getRol
 Route::apiResource('user', App\Http\Controllers\API\UserController::class);
 
 Route::apiResource('persentase-kenaikan', App\Http\Controllers\API\PersentaseKenaikanController::class);
+
+
+Route::get('chart', [ChartController::class, 'getAllData']);
+Route::get('chart-karyawan', [ChartController::class, 'getDataByKaryawan']);
